@@ -24,6 +24,7 @@ CONSTRAINT FK_tblMateriales_tbFamilia FOREIGN KEY (IdFamilia) REFERENCES tblFami
  
 
 
+
 create table tblProveedores
 (CIFprov char(15) NOT NULL PRIMARY KEY,
 nombreprov char(20) NOT NULL,
@@ -45,10 +46,20 @@ constraint FK_TMP_prov foreign key (CIFpro) references tblProveedores(CIFprov) O
 constraint FK_TMP_Mat foreign key(codemat) references tblMateriales(codigo_material) ON UPDATE CASCADE) ;
 
 
+create table tblRoles
+
+(
+IdRol int(11) NOT NULL AUTO_INCREMENT,
+TipoRol char(1) NOT NULL,
+descripcion varchar(100) NOT NULL,
+PRIMARY KEY (IdRol)
+
+);
 
 create table tblTrabajadores(
 
 NIFtrab char(15) NOT NULL UNIQUE PRIMARY KEY,
+IdRol int(11) NOT NULL,
 CIF_Empresa char(5) NOT NULL,
 Fecha date NOT NULL,
 usuario char(30),
@@ -61,7 +72,12 @@ e_mailtrab char(50),
 Fecha_inicio date NOT NULL,
 fecha_fin date NOT NULL,
 activotrab bit,
-constraint FK_tblTrabajadores_CIFEMPRESA foreign key(CIF_empresa) references tblDatos_Empresa (CIF_Empresa) ON UPDATE CASCADE);
+constraint FK_tblTrabajadores_CIFEMPRESA foreign key(CIF_empresa) references tblDatos_Empresa (CIF_Empresa) ON UPDATE CASCADE,
+constraint FK_tblTrabajadores_IDROL foreign key (IdRol) references tblRoles (IdRol) ON UPDATE CASCADE);
+
+
+
+
 
 create table tblSueldos(
 NIF_trab char(15) NOT NULL,
@@ -159,5 +175,4 @@ constraint FK_tblTrabEj_trabajador foreign key (trabajador) references tblTrabaj
 
   
   CONSTRAINT FK_tblstockproductos_tblproductos FOREIGN KEY (IdMaterial) REFERENCES tblMateriales (codigo_material));
-
 
