@@ -16,7 +16,7 @@ import javax.persistence.Table;
 
 /**
  *
- * @author Jose Maria
+ * @author Jose Maria Y Lucia Ferreira
  */
 @Entity
 @Table(name="tblFamilias")
